@@ -1,0 +1,27 @@
+service: aws-planet-api
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  httpApi:
+    cors: true
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript
+
+functions:
+  api:
+    handler: src/index.handler
+    events:
+      - httpApi:
+          path: /
+          method: get
+
+  user-register:
+    handler: src/User/RegisterFunction.UserRegistrationHandler
+    events:
+      - httpApi:
+          path: /api/v1/user/register
+          method: post
